@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>link to get pdf</legend>
+        <a href="/get_retrievePdf">/get_retrievePdf</a>
+    </fieldset>
+
+    <fieldset>
+        <legend>A traditional get</legend>
+        <a href="/traditionalGet?param1=hello&param2=world">/traditionalGet?param1=hello&param2=world</a>
+    </fieldset>
+
+    <fieldset>
+        <legend>A traditional post</legend>
+        <form action="/traditionalPost" method="post">
+            param1 <input name="param1" type="text" /> <br />
+            param2 <input name="param2" type="text" /> <br />
+            <input type="submit" />
+        </form>
+    </fieldset>
+</body>
+
+</html>

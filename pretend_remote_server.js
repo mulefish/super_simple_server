@@ -6,9 +6,8 @@ const bodyParser = require("body-parser")
 const stack = require('callsite');
 const fs = require('fs');
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.json());
 
-const port = process.argv[2] || 3030;
+const port = 2222;
 const home = `http://localhost:${port}`
 let template = `<html<head>
     <link rel="icon" href="data:,">
@@ -25,14 +24,14 @@ function log(msg) {
 function showHit() {
   const everything = stack()
   const caller = everything[1]
-  const metainfo = "Hit line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
+  const metainfo = "REMOTE: hit line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
   console.log(metainfo)
 }
 
 function error(msg) {
   const everything = stack()
   const caller = everything[1]
-  const metainfo = "*** Boom! Line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
+  const metainfo = "REMOTE: *** Boom! Line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
   console.log(metainfo + "\n" + msg)
   return metainfo
 
@@ -47,23 +46,16 @@ function error(msg) {
 
 ////////////////////////////// LOGIC ///////////////////////////////////////////
 
-app.post('/echo_post', function (req, res) {
-  showHit()
-  const auth = req.headers.authorization
-  const everything = {
-    ...req.body,
-    auth
-  }
-  console.log(req.body)
-  res.send(everything);
-});
 
 app.get('/', function (req, res) {
   showHit()
+
   //1:  __dirname = allow relative paths ( relative to where server.js is )
   //2: the {root: } is to prevent someone from sending tricksy paths such as
   // vv../../../my-secrets/importantfile.txt
-  res.sendFile('index.html', { root: __dirname })
+  //
+  // 
+  res.sendFile('other_server.html', { root: __dirname })
 })
 
 app.get('/traditionalGet', function (req, res) {
@@ -73,9 +65,9 @@ app.get('/traditionalGet', function (req, res) {
   const c = `${a}<br/>${b}`
   const d = template.replace("CONTENT_WILL_GO_HERE", c)
   res.send(d)
-});
+})
 
-app.post('/traditionalPostForm', function (req, res) {
+app.post('/traditionalPost', function (req, res) {
   showHit()
   const a = req.body.param1
   const b = req.body.param2

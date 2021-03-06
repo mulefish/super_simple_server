@@ -1,21 +1,21 @@
 {
   "name": "chakraspaskeleton",
   "version": "1.0.0",
-  "description": "CHECK THIS https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_voxelpainter.html",
+  "description": "Express server to serve a PDF and be a TEMPLATE for testbed for some RESTful services",
   "main": "move4.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mulefish/ChakraSpaSkeleton.git"
+    "url": "git@github.com:mulefish/super_simple_server.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mulefish/ChakraSpaSkeleton/issues"
+    "url": "https://github.com/mulefish/super_simple_server"
   },
-  "homepage": "https://github.com/mulefish/ChakraSpaSkeleton#readme",
+  "homepage": "https://github.com/mulefish/super_simple_server",
   "dependencies": {
     "body-parser": "^1.19.0",
     "callsite": "^1.0.0",

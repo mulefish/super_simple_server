@@ -52,6 +52,24 @@ function error(msg) {
 }
 
 ////////////////////////////// LOGIC ///////////////////////////////////////////
+
+app.get('/echo_axio_get', function (req, res) {
+  showHit()
+  console.log(req)
+  res.send({ "hello": "echo_axio_get" })
+
+});
+
+
+
+
+app.post('/echo_axio_post', function (req, res) {
+  showHit()
+  console.log(req)
+  res.send({ "hello": "echo_axio_post" })
+});
+
+
 app.post('/echo_get', function (req, res) {
   showHit()
   const auth = req.headers.authorization
@@ -69,6 +87,7 @@ app.post('/echo_post', function (req, res) {
     ...req.body,
     auth
   }
+  console.log(JSON.stringify(everything, null, 2))
   res.send(everything);
 });
 

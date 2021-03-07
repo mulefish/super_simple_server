@@ -2,12 +2,112 @@
 
 <head>
     <link rel="icon" href="data:,">
+    <!-- Axios is only needed for the axios get or post ( i.e., just 2 funcs )   -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <meta charset="utf-8" />
     <title></title>
 </head>
 
 <body>
 
+    <fieldset>
+        <legend>axios + get </legend>
+        <div id='replaceMe'>
+            <pre>
+                axios.get('/echo_axio_get')
+                .then((response)=>{
+                    // do something
+                })
+                .catch(error) {
+
+                }
+                .then()
+
+        </pre>
+        </div>
+        <script>
+            function axio_get() {
+
+                // axios.get('https://api.github.com/users/mapbox')
+                //     .then((response) => {
+                //         console.log(response.data);
+                //         // console.log(response.status);
+                //         // console.log(response.statusText);
+                //         // console.log(response.headers);
+                //         // console.log(response.config);
+                //     });
+                axios.get('/echo_axio_get')
+                    .then((response) => {
+                        let table = "<table border='1'>"
+                        table += `<tr><td>response.data</td><td>${JSON.stringify(response.data)}</td></tr>`
+                        table += `<tr><td>response.status</td><td>${response.status}</td></tr>`
+                        table += `<tr><td>response.statusText</td><td>${response.statusText}</td></tr>`
+                        table += `<tr><td>response.headers</td><td>${JSON.stringify(response.headers)}</td></tr>`
+                        table += `<tr><td>response.config</td><td>${JSON.stringify(response.config)}</td></tr>`
+                        document.getElementById("replaceMe").innerHTML = table
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    })
+                    .then(function () {
+                        // always fire...
+                    })
+
+
+            }
+
+        </script>
+        <button onClick="axio_get()">axio_get</button>
+    </fieldset>
+
+    <fieldset>
+        <legend>axios + post </legend>
+        <div id="replaceMe2">
+            <pre>
+                axios.post('/echo_axio_post', {}, {
+                    a: 'echo_axio_post',
+                    b: 'echo_post',
+                    headers: {
+                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                    }
+                })
+                    .then(function (response) {
+                        // logic here
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    })
+                </pre>
+        </div>
+        <script>
+            function axio_post() {
+
+                axios.post('/echo_axio_post', {}, {
+                    a: 'echo_axio_post',
+                    b: 'echo_post',
+                    headers: {
+                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                    }
+                })
+                    .then(function (response) {
+
+                        let table = "<table border='1'>"
+                        table += `<tr><td>response.data</td><td>${JSON.stringify(response.data)}</td></tr>`
+                        table += `<tr><td>response.status</td><td>${response.status}</td></tr>`
+                        table += `<tr><td>response.statusText</td><td>${response.statusText}</td></tr>`
+                        table += `<tr><td>response.headers</td><td>${JSON.stringify(response.headers)}</td></tr>`
+                        table += `<tr><td>response.config</td><td>${JSON.stringify(response.config)}</td></tr>`
+                        document.getElementById("replaceMe2").innerHTML = table
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+
+            }
+        </script>
+        <button onClick="axio_post()">axio_post</button>
+    </fieldset>
 
     <fieldset>
         <legend>fetch + get ( complex get w/ Bearer token & JSON payload ) </legend>

@@ -15,28 +15,11 @@
         <legend>axios + get </legend>
         <div id='replaceMe'>
             <pre>
-                axios.get('/echo_axio_get')
-                .then((response)=>{
-                    // do something
-                })
-                .catch(error) {
-
-                }
-                .then()
-
+                I have not really figured out how to READ axios on the backend
         </pre>
         </div>
         <script>
             function axio_get() {
-
-                // axios.get('https://api.github.com/users/mapbox')
-                //     .then((response) => {
-                //         console.log(response.data);
-                //         // console.log(response.status);
-                //         // console.log(response.statusText);
-                //         // console.log(response.headers);
-                //         // console.log(response.config);
-                //     });
                 axios.get('/echo_axio_get')
                     .then((response) => {
                         let table = "<table border='1'>"
@@ -65,19 +48,7 @@
         <legend>axios + post </legend>
         <div id="replaceMe2">
             <pre>
-                axios.post('/echo_axio_post', {}, {
-                    a: 'echo_axio_post',
-                    b: 'echo_post',
-                    headers: {
-                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
-                    }
-                })
-                    .then(function (response) {
-                        // logic here
-                    })
-                    .catch(function (error) {
-                        alert(error);
-                    })
+                I have not really figured out how to READ axios on the backend
                 </pre>
         </div>
         <script>
@@ -103,7 +74,6 @@
                     .catch(function (error) {
                         alert(error);
                     });
-
             }
         </script>
         <button onClick="axio_post()">axio_post</button>

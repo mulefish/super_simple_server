@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <!-- Axios is only needed for the axios get or post ( i.e., just 2 funcs )   -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+
+
+
+    <fieldset>
+        <legend>fetch + post CORS! </legend>
+        <input type="number" placeholder="target server port" value="" id="other_port" onblur="set_port_number()">
+        </input>
+        <div id="generated_url">http://localhost:????/echo_post</div>
+        <script>
+            let port = undefined;
+
+            function set_port_number() {
+                port = document.getElementById("other_port").value;
+                const gu = `http://localhost:${port}/echo_post`
+                document.getElementById("generated_url").innerHTML = gu
+            }
+
+            const payload = {
+                a: "Eeboo",
+                b: "sakm"
+            }
+            async function do_fetch_echo_post() {
+                if (port == undefined) {
+                    alert("Set the port first")
+                } else {
+                    const rawResponse = await fetch(`http://localhost:${port}/echo_post`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const content = await rawResponse.json();
+                    alert(JSON.stringify(content, null, 2));
+                }
+            };
+        </script>
+        <button onClick="do_fetch_echo_post()">do_fetch_echo_post()</button>
+
+    </fieldset>
+
+</body>
+
+</html>

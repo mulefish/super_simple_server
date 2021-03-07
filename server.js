@@ -1,13 +1,10 @@
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 ////////////////////////////// SET UP and utils /////////////////////////////////
 const express = require('express')
-const app = express()
 const bodyParser = require("body-parser")
 const stack = require('callsite');
 const fs = require('fs');
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.json());
-
+const cors = require('cors')
 const port = process.argv[2] || 3030;
 const home = `http://localhost:${port}`
 let template = `<html<head>
@@ -19,6 +16,29 @@ let template = `<html<head>
     </body>
     </html>
 `
+const allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:2222');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+}
+const app = express()
+const configure = () => {
+  app.use(bodyParser.urlencoded({ extended: false }))
+  //app.use(express.json());
+  app.use(bodyParser.json());
+  app.use(cors())
+  // app.use(express.bodyParser());
+  // app.use(express.cookieParser());
+  // app.use(express.session({ secret: 'super zoom' }));
+  // app.use(express.methodOverride());
+  app.use(allowCrossDomain);
+  // app.use(app.router);
+  // app.use(express.static(__dirname + '/public'));
+}
+configure()
+
 function log(msg) {
   console.log("\t" + msg)
 }
@@ -55,18 +75,15 @@ function error(msg) {
 
 app.get('/echo_axio_get', function (req, res) {
   showHit()
-  console.log(req)
-  res.send({ "hello": "echo_axio_get" })
-
+  // I have not figured out how to read axios req
+  res.send({ "func": "echo_axio_get", "todo": "Figure out express + axios" })
 });
-
-
-
 
 app.post('/echo_axio_post', function (req, res) {
   showHit()
-  console.log(req)
-  res.send({ "hello": "echo_axio_post" })
+  // I have not figured out how to read axios req
+  res.send({ "func": "echo_axio_post", "todo": "Figure out express + axios" })
+
 });
 
 

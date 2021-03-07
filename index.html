@@ -8,19 +8,65 @@
 
 <body>
 
+
+    <fieldset>
+        <legend>fetch + get</legend>
+        <pre>
+            const a_payload = {
+                Get_requests: "can have whatever a ",
+                post_request: "can, have including",
+                header: "or other auth information."
+            }
+            async function do_fetch_echo_get() {
+                const rawResponse = await fetch('/echo_get', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                    },
+                    body: JSON.stringify(a_payload)
+                });
+                const content = await rawResponse.json();
+                alert(JSON.stringify(content, null, 2));
+            };
+        </pre>
+        <script>
+            const a_payload = {
+                Get_requests: "can have whatever a ",
+                post_request: "can, have including",
+                header: "or other auth information."
+            }
+            async function do_fetch_echo_get() {
+                const rawResponse = await fetch('/echo_get', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                    },
+                    body: JSON.stringify(a_payload)
+                });
+                const content = await rawResponse.json();
+                alert(JSON.stringify(content, null, 2));
+            };
+        </script>
+        <button onClick="do_fetch_echo_get()">do_fetch_echo_get() ! </button>
+
+    </fieldset>
+
+
+
+
+
     <fieldset>
         <legend>fetch + post</legend>
         <pre>
-
-        </pre>
-        <script>
             const payload = {
                 a: "Eeboo",
                 b: "sakm"
             }
             async function do_fetch_echo_post() {
-                //                alert("helo")
-
                 const rawResponse = await fetch('/echo_post', {
                     method: 'POST',
                     headers: {
@@ -32,9 +78,26 @@
                 });
                 const content = await rawResponse.json();
                 alert(JSON.stringify(content, null, 2));
-
             };
-
+        </pre>
+        <script>
+            const payload = {
+                a: "Eeboo",
+                b: "sakm"
+            }
+            async function do_fetch_echo_post() {
+                const rawResponse = await fetch('/echo_post', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const content = await rawResponse.json();
+                alert(JSON.stringify(content, null, 2));
+            };
         </script>
         <button onClick="do_fetch_echo_post()">do_fetch_echo_post()</button>
 

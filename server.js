@@ -25,14 +25,20 @@ function log(msg) {
 function showHit() {
   const everything = stack()
   const caller = everything[1]
-  const metainfo = "Hit line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
+  const line = caller.getLineNumber()
+  const func = caller.getFunctionName() || 'anonymous'
+  const file = caller.getFileName()
+  const metainfo = `Hit ${line}, '${func}', ${file}`
   console.log(metainfo)
 }
 
 function error(msg) {
   const everything = stack()
   const caller = everything[1]
-  const metainfo = "*** Boom! Line: " + caller.getLineNumber() + " in File: " + caller.getFileName()
+  const line = caller.getLineNumber()
+  const func = caller.getFunctionName() || 'anonymous'
+  const file = caller.getFileName()
+  const metainfo = `*** Boom! ${line}, '${func}', ${file}`
   console.log(metainfo + "\n" + msg)
   return metainfo
 
@@ -46,6 +52,15 @@ function error(msg) {
 }
 
 ////////////////////////////// LOGIC ///////////////////////////////////////////
+app.post('/echo_get', function (req, res) {
+  showHit()
+  const auth = req.headers.authorization
+  const everything = {
+    ...req.body,
+    auth
+  }
+  res.send(everything);
+});
 
 app.post('/echo_post', function (req, res) {
   showHit()
@@ -54,7 +69,6 @@ app.post('/echo_post', function (req, res) {
     ...req.body,
     auth
   }
-  console.log(req.body)
   res.send(everything);
 });
 

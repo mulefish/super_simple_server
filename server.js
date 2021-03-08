@@ -116,6 +116,18 @@ app.post('/post_retrievePdf', function (req, res) {
   });
 });
 
+app.get('/get_retrievePdf', function (req, res) {
+  showHit()
+  res.writeHead(200, { "Content-Type": "application/pdf" });
+  fs.readFile('sample.pdf', (boom, data) => {
+    if (boom) {
+      res.send(boom)
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
+});
 
 app.post('/echo_post', function (req, res) {
   showHit()
@@ -135,6 +147,16 @@ app.get('/', function (req, res) {
   // vv../../../my-secrets/importantfile.txt
   res.sendFile('index.html', { root: __dirname })
 })
+
+
+app.get('/pdf', function (req, res) {
+  showHit()
+  //1:  __dirname = allow relative paths ( relative to where server.js is )
+  //2: the {root: } is to prevent someone from sending tricksy paths such as
+  // vv../../../my-secrets/importantfile.txt
+  res.sendFile('other_server.html', { root: __dirname })
+})
+
 
 app.get('/traditionalGet', function (req, res) {
   showHit()

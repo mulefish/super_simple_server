@@ -58,40 +58,6 @@ app.get('/', function (req, res) {
   res.sendFile('other_server.html', { root: __dirname })
 })
 
-app.get('/traditionalGet', function (req, res) {
-  showHit()
-  const a = req.query.param1
-  const b = req.query.param2
-  const c = `${a}<br/>${b}`
-  const d = template.replace("CONTENT_WILL_GO_HERE", c)
-  res.send(d)
-})
-
-app.post('/traditionalPost', function (req, res) {
-  showHit()
-  const a = req.body.param1
-  const b = req.body.param2
-  const c = `${a}<br/>${b}`
-  const d = template.replace("CONTENT_WILL_GO_HERE", c)
-  res.send(d)
-});
-
-
-app.get('/get_retrievePdf', function (req, res) {
-  showHit()
-  res.writeHead(200, { "Content-Type": "application/pdf" });
-  fs.readFile('sample.pdf', (boom, data) => {
-    if (boom) {
-      const metainfo = error(boom)
-      boom += "<br/>" + metainfo
-      const x = template.replace("CONTENT_WILL_GO_HERE", boom)
-      res.send(x)
-    } else {
-      res.write(data);
-      res.end();
-    }
-  });
-});
 
 ////////////////////////////// MAIN ////////////////////////////////////////////
 

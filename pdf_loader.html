@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <h3>This page will use the 'pdf-lib' to load a PDF into an iFrame.</h3>
+
+
+    <fieldset>
+        <legend>js to load a PDF using a fetch POST</legend>
+        <input type="number" value="3030" id="other_port" onblur="set_port_number()">
+        </input>
+        <div id="generated_url">http://localhost:3030/get_a_pdf</div>
+        <script>
+            let port = 3030;
+
+            function set_port_number() {
+                port = document.getElementById("other_port").value;
+                const gu = `http://localhost:${port}/post_retrievePdf`
+                document.getElementById("generated_url").innerHTML = gu
+            }
+
+            const payload = {
+                a: "Eeboo",
+                b: "sakm"
+            }
+            async function do_fetch_echo_post() {
+                if (port == undefined) {
+                    alert("Set the port first")
+                } else {
+                    const rawResponse = await fetch(`http://localhost:${port}/echo_post`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer 123BLAHBLAHBLAH123'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const content = await rawResponse.json();
+                    // alert(JSON.stringify(content, null, 2));
+                    alert("hello ")
+                }
+            };
+        </script>
+        <button onClick="do_fetch_echo_post()">do_fetch_echo_post()</button>
+
+    </fieldset>
+
+</body>
+
+</html>

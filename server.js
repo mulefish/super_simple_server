@@ -97,6 +97,26 @@ app.post('/echo_get', function (req, res) {
   res.send(everything);
 });
 
+app.post('/post_retrievePdf', function (req, res) {
+  showHit()
+
+  const auth = req.headers.authorization
+  const loanId = req.body["loanId"]
+
+  console.log("Fake auth " + auth + "    loanid " + loanId)
+
+  res.writeHead(200, { "Content-Type": "application/pdf" });
+  fs.readFile('sample.pdf', (boom, data) => {
+    if (boom) {
+      res.send(boom)
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
+});
+
+
 app.post('/echo_post', function (req, res) {
   showHit()
   const auth = req.headers.authorization

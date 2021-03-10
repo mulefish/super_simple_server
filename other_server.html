@@ -13,21 +13,17 @@
 </head>
 
 <body>
-    <input size=140 type="text" id="the_url" value="http://localhost:3030/get_retrievePdf"></input>
-    <br />
 
-
+    <iframe id="iframe" style="width:100%"></iframe>
+    <hr>
 
     <fieldset>
+        <input size=140 type="text" id="the_post_url" value="http://localhost:3030/post_retrievePdf"></input>
+        <br />
+
         <pre>
-        </pre>
-        <script>
-
-
             function axios_post() {
-                let apiURL = document.getElementById("the_url").value; // 
-                let orig = 'http://localhost:3030/post_retrievePdf'
-                apiURL = orig
+                let apiURL = document.getElementById("the_post_url").value; // 
                 console.log("POST: " + apiURL)
                 axios(`${apiURL}`, {
                     method: 'POST',
@@ -43,13 +39,33 @@
                     })
                     .catch(error => {
                         console.log(error);
-                        document.getElementById("iframe").src = "POST FAIL BOT"
-
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
                     });
-
             }
 
-
+        </pre>
+        <script>
+            function axios_post() {
+                let apiURL = document.getElementById("the_post_url").value; // 
+                console.log("POST: " + apiURL)
+                axios(`${apiURL}`, {
+                    method: 'POST',
+                    responseType: 'blob', //Force to receive data in a Blob Format
+                    headers: { 'Authorization': 'Bearer abc123' }
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' });//Build a URL from the file
+                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
+                        // window.open(fileURL);
+                        document.getElementById("iframe").src = fileURL
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
+                    });
+            }
         </script>
         <button onClick="axios_post()">axios_post</button>
     </fieldset>
@@ -57,13 +73,12 @@
 
 
     <fieldset>
+        <input size=140 type="text" id="the_get_url" value="http://localhost:3030/get_retrievePdf"></input>
+        <br />
         <pre>
-        </pre>
-        <script>
             function axios_get() {
-                let apiURL = document.getElementById("the_url").value; // 
-                let orig = 'http://localhost:3030/get_retrievePdf'
-                console.log(apiURL)
+                let apiURL = document.getElementById("the_get_url").value; // 
+                console.log("GET: " + apiURL)
                 axios(`${apiURL}`, {
                     method: 'GET',
                     responseType: 'blob' //Force to receive data in a Blob Format
@@ -78,21 +93,35 @@
                     })
                     .catch(error => {
                         console.log(error);
-                        document.getElementById("iframe").src = "GET FAIL BOT"
-
+                        document.getElementById("iframe").src = "GET FAIL BOT : Is the server running?"
                     });
 
             }
-
-
+        </pre>
+        <script>
+            function axios_get() {
+                let apiURL = document.getElementById("the_get_url").value; // 
+                console.log("GET: " + apiURL)
+                axios(`${apiURL}`, {
+                    method: 'GET',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' });//Build a URL from the file
+                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
+                        // window.open(fileURL);
+                        document.getElementById("iframe").src = fileURL
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "GET FAIL BOT : Is the server running?"
+                    });
+            }
         </script>
         <button onClick="axios_get()">axios_get</button>
     </fieldset>
-
-
-
-    <iframe id="iframe"></iframe>
-
 </body>
 
 </html>

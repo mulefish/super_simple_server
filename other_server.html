@@ -19,12 +19,12 @@
 
     <fieldset>
         <pre>
-</pre>
+        </pre>
         <script>
-            function axios_way() {
-                let apiURL = 'http://localhost:3030/get_retrievePdf'
+            function axios_get() {
+                let apiURL = document.getElementById("the_url").value; // 
+                let orig = 'http://localhost:3030/get_retrievePdf'
                 console.log(apiURL)
-
                 axios(`${apiURL}`, {
                     method: 'GET',
                     responseType: 'blob' //Force to receive data in a Blob Format
@@ -39,13 +39,15 @@
                     })
                     .catch(error => {
                         console.log(error);
+                        document.getElementById("iframe").src = "FAIL BOT"
+
                     });
 
             }
 
 
         </script>
-        <button onClick="axios_way()">axios_way</button>
+        <button onClick="axios_get()">axios_get</button>
     </fieldset>
 
 

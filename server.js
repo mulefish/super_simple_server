@@ -73,19 +73,6 @@ function error(msg) {
 
 ////////////////////////////// LOGIC ///////////////////////////////////////////
 
-app.get('/echo_axio_get', function (req, res) {
-  showHit()
-  // I have not figured out how to read axios req
-  res.send({ "func": "echo_axio_get", "todo": "Figure out express + axios" })
-});
-
-app.post('/echo_axio_post', function (req, res) {
-  showHit()
-  // I have not figured out how to read axios req
-  res.send({ "func": "echo_axio_post", "todo": "Figure out express + axios" })
-
-});
-
 
 app.post('/echo_get', function (req, res) {
   showHit()

@@ -11,73 +11,128 @@
 
 <body>
 
-    <fieldset>
-        <legend>axios + get </legend>
-        <div id='replaceMe'>
-            <pre>
-                I have not really figured out how to READ axios on the backend
-        </pre>
-        </div>
-        <script>
-            function axio_get() {
-                axios.get('/echo_axio_get')
-                    .then((response) => {
-                        let table = "<table border='1'>"
-                        table += `<tr><td>response.data</td><td>${JSON.stringify(response.data)}</td></tr>`
-                        table += `<tr><td>response.status</td><td>${response.status}</td></tr>`
-                        table += `<tr><td>response.statusText</td><td>${response.statusText}</td></tr>`
-                        table += `<tr><td>response.headers</td><td>${JSON.stringify(response.headers)}</td></tr>`
-                        table += `<tr><td>response.config</td><td>${JSON.stringify(response.config)}</td></tr>`
-                        document.getElementById("replaceMe").innerHTML = table
-                    })
-                    .catch(function (error) {
-                        alert(error);
-                    })
-                    .then(function () {
-                        // always fire...
-                    })
-
-
-            }
-
-        </script>
-        <button onClick="axio_get()">axio_get</button>
-    </fieldset>
+    <a href="http://localhost:2222/">http://localhost:2222/</a>
+    <iframe id="iframe" style="width:100%"></iframe>
+    <hr>
 
     <fieldset>
-        <legend>axios + post </legend>
-        <div id="replaceMe2">
-            <pre>
-                I have not really figured out how to READ axios on the backend
-                </pre>
-        </div>
-        <script>
-            function axio_post() {
+        <input size=140 type="text" id="the_post_url" value="http://localhost:3030/post_retrievePdf"></input>
+        <br />
 
-                axios.post('/echo_axio_post', {}, {
-                    a: 'echo_axio_post',
-                    b: 'echo_post',
+        <pre>
+            function axios_post() {
+                let apiURL = document.getElementById("the_post_url").value; // 
+                console.log("POST: " + apiURL)
+                axios(`${apiURL}`, {
                     headers: {
-                        'Authorization': 'Bearer 123BLAHBLAHBLAH123'
-                    }
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        'documentId': '776613'
+                    },
+                    method: 'POST',
+                    responseType: 'blob' //Force to receive data in a Blob Format
                 })
-                    .then(function (response) {
-
-                        let table = "<table border='1'>"
-                        table += `<tr><td>response.data</td><td>${JSON.stringify(response.data)}</td></tr>`
-                        table += `<tr><td>response.status</td><td>${response.status}</td></tr>`
-                        table += `<tr><td>response.statusText</td><td>${response.statusText}</td></tr>`
-                        table += `<tr><td>response.headers</td><td>${JSON.stringify(response.headers)}</td></tr>`
-                        table += `<tr><td>response.config</td><td>${JSON.stringify(response.config)}</td></tr>`
-                        document.getElementById("replaceMe2").innerHTML = table
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' }) //Build a URL from the file
+                        const blobUrl = URL.createObjectURL(file)
+                        //console.log(blobUrl)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
+                        document.getElementById("iframe").src = blobUrl
                     })
-                    .catch(function (error) {
-                        alert(error);
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
+                    });
+            }
+        </pre>
+        <script>
+            function axios_post() {
+                let apiURL = document.getElementById("the_post_url").value; // 
+                console.log("POST: " + apiURL)
+                axios(`${apiURL}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        'documentId': '776613'
+                    },
+                    method: 'POST',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' }) //Build a URL from the file
+                        const blobUrl = URL.createObjectURL(file)
+                        //console.log(blobUrl)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
+                        document.getElementById("iframe").src = blobUrl
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
                     });
             }
         </script>
-        <button onClick="axio_post()">axio_post</button>
+        <button onClick="axios_post()">axios_post</button>
     </fieldset>
+
+
+
+    <fieldset>
+        <input size=140 type="text" id="the_get_url" value="http://localhost:3030/get_retrievePdf"></input>
+        <br />
+        <pre>
+            function axios_get() {
+                let apiURL = document.getElementById("the_get_url").value; // 
+                console.log("GET: " + apiURL)
+                axios(`${apiURL}`, {
+                    method: 'GET',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' });//Build a URL from the file
+                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
+                        // window.open(fileURL);
+                        document.getElementById("iframe").src = fileURL
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "GET FAIL BOT : Is the server running?"
+                    });
+            }
+        </pre>
+        <script>
+            function axios_get() {
+                let apiURL = document.getElementById("the_get_url").value; // 
+                console.log("GET: " + apiURL)
+                axios(`${apiURL}`, {
+                    method: 'GET',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' });//Build a URL from the file
+                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
+                        // window.open(fileURL);
+                        document.getElementById("iframe").src = fileURL
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "GET FAIL BOT : Is the server running?"
+                    });
+            }
+        </script>
+        <button onClick="axios_get()">axios_get</button>
+    </fieldset>
+
+
 
     <fieldset>
         <legend>fetch + get ( complex get w/ Bearer token & JSON payload ) </legend>

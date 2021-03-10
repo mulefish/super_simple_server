@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+    <a href="http://localhost:3030/">http://localhost:3030/</a>
     <iframe id="iframe" style="width:100%"></iframe>
     <hr>
 
@@ -49,17 +49,23 @@
                 let apiURL = document.getElementById("the_post_url").value; // 
                 console.log("POST: " + apiURL)
                 axios(`${apiURL}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        'documentId': '776613'
+                    },
                     method: 'POST',
-                    responseType: 'blob', //Force to receive data in a Blob Format
-                    headers: { 'Authorization': 'Bearer abc123' }
+                    responseType: 'blob' //Force to receive data in a Blob Format
                 })
                     .then(response => {//Create a Blob from the PDF Stream
                         const file = new Blob(
                             [response.data],
-                            { type: 'application/pdf' });//Build a URL from the file
-                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
-                        // window.open(fileURL);
-                        document.getElementById("iframe").src = fileURL
+                            { type: 'application/pdf' }) //Build a URL from the file
+                        const blobUrl = URL.createObjectURL(file)
+                        //console.log(blobUrl)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
+                        document.getElementById("iframe").src = blobUrl
                     })
                     .catch(error => {
                         console.log(error);

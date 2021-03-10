@@ -4,44 +4,52 @@
     <link rel="icon" href="data:,">
     <meta charset="utf-8" />
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/pdf-lib"></script>
     <title></title>
 </head>
 
 <body>
+    <input size=140 type="text" id="the_url" value="http://localhost:3030/get_retrievePdf"></input>
+    <br />
+
 
     <fieldset>
+        <pre>
+</pre>
         <script>
-            async function step2_loadPdf(url) {
-                try {
-                    const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-                    const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-                    //const pages = pdfDoc.getPages()
-                    const pdfBytes = pdfDoc.save()
-                    return pdfBytes
-                } catch (boom) {
-                    alert("FAILBOT! " + boom)
-                }
-            };
+            function axios_way() {
+                let apiURL = 'http://localhost:3030/get_retrievePdf'
+                console.log(apiURL)
 
-            const step3_renderPdf = (pdfBytes) => {
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' })
-                const blobUrl = URL.createObjectURL(blob)
-                document.getElementById("iframe").src = blobUrl;
+                axios(`${apiURL}`, {
+                    method: 'GET',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' });//Build a URL from the file
+                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
+                        // window.open(fileURL);
+                        document.getElementById("iframe").src = fileURL
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
 
             }
 
-            const step1_loadPdf = () => {
-                const url = "http://localhost:3030/get_retrievePdf"
-                step2_loadPdf(url).then(pdfBytes => step3_renderPdf(pdfBytes))
-            }
+
         </script>
-        <button onClick="step1_loadPdf()">step1_loadPdf()</button>
-
-
+        <button onClick="axios_way()">axios_way</button>
     </fieldset>
+
+
+
     <iframe id="iframe"></iframe>
 
 </body>

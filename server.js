@@ -17,7 +17,7 @@ let template = `<html<head>
     </html>
 `
 const allowCrossDomain = function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:2222');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -128,6 +128,21 @@ app.get('/get_retrievePdf', function (req, res) {
     }
   });
 });
+
+app.post('/post_retrievePdf', function (req, res) {
+  showHit()
+  res.writeHead(200, { "Content-Type": "application/pdf" });
+  fs.readFile('sample.pdf', (boom, data) => {
+    if (boom) {
+      res.send(boom)
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
+});
+
+
 
 app.post('/echo_post', function (req, res) {
   showHit()

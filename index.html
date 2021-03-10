@@ -21,11 +21,12 @@
 
         <pre>
             function axios_post() {
-                let apiURL = document.getElementById("the_post_url").value; // 
+                const apiURL = document.getElementById("the_post_url").value; // 
                 console.log("POST: " + apiURL)
-                axios(`${apiURL}`, {
+                axios(apiURL, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123abc'
                     },
                     data: {
                         'documentId': '776613'
@@ -38,7 +39,6 @@
                             [response.data],
                             { type: 'application/pdf' }) //Build a URL from the file
                         const blobUrl = URL.createObjectURL(file)
-                        //console.log(blobUrl)
                         //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
                         document.getElementById("iframe").src = blobUrl
                     })
@@ -46,15 +46,15 @@
                         console.log(error);
                         document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
                     });
-            }
-        </pre>
+            }        </pre>
         <script>
             function axios_post() {
-                let apiURL = document.getElementById("the_post_url").value; // 
+                const apiURL = document.getElementById("the_post_url").value; // 
                 console.log("POST: " + apiURL)
-                axios(`${apiURL}`, {
+                axios(apiURL, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123abc'
                     },
                     data: {
                         'documentId': '776613'
@@ -67,7 +67,6 @@
                             [response.data],
                             { type: 'application/pdf' }) //Build a URL from the file
                         const blobUrl = URL.createObjectURL(file)
-                        //console.log(blobUrl)
                         //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
                         document.getElementById("iframe").src = blobUrl
                     })
@@ -75,8 +74,7 @@
                         console.log(error);
                         document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
                     });
-            }
-        </script>
+            }        </script>
         <button onClick="axios_post()">axios_post</button>
     </fieldset>
 
@@ -97,9 +95,10 @@
                         const file = new Blob(
                             [response.data],
                             { type: 'application/pdf' });//Build a URL from the file
-                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
-                        // window.open(fileURL);
-                        document.getElementById("iframe").src = fileURL
+                            const blobUrl = URL.createObjectURL(file)
+                            //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"""
+                            document.getElementById("iframe").src = blobUrl
+    
                     })
                     .catch(error => {
                         console.log(error);
@@ -119,9 +118,10 @@
                         const file = new Blob(
                             [response.data],
                             { type: 'application/pdf' });//Build a URL from the file
-                        const fileURL = URL.createObjectURL(file);//Open the URL on new Window
-                        // window.open(fileURL);
-                        document.getElementById("iframe").src = fileURL
+                        const blobUrl = URL.createObjectURL(file)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"""
+                        document.getElementById("iframe").src = blobUrl
+
                     })
                     .catch(error => {
                         console.log(error);

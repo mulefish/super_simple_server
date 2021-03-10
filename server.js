@@ -87,11 +87,20 @@ app.post('/echo_get', function (req, res) {
 app.post('/post_retrievePdf', function (req, res) {
   showHit()
 
-  const auth = req.headers.authorization
-  const loanId = req.body["loanId"]
+  //const bearerToken = req.headers.authorization
+  //const documentId = req.data["documentId"]
 
-  console.log("Fake auth " + auth + "    loanid " + loanId)
+  //console.log(bearerToken)
+  //console.log(documentid)
 
+  try {
+    const auth = req.headers.authorization
+    const documentId = req.body["documentId"]
+    console.log("\t\t" + auth + "    documentId " + documentId)
+  } catch (something_is_wrong) {
+    // LIkeky was simply not included
+    console.log("Looked for auth and docId params but " + something_is_wrong)
+  }
   res.writeHead(200, { "Content-Type": "application/pdf" });
   fs.readFile('sample.pdf', (boom, data) => {
     if (boom) {

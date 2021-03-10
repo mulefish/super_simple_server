@@ -13,7 +13,7 @@ http://localhost:3030/pdf
 
 # What is this: CROSS-SITE
 CROSS-SITE experiment
-step1: node server.js ( localhost:3030 ) /and pretend it is some remote server. 
+step1: node server.js ( localhost:3030 ) /and pretend it is some remote server.   
 step2: node other_server.js ( localhost:2222/ ) and use its page to hit/call for resources from 'server.js' 
 
 # What is this: API examine

@@ -84,6 +84,36 @@ app.post('/echo_get', function (req, res) {
   res.send(everything);
 });
 
+
+
+app.post('/post_octet_retrievePdf', function (req, res) {
+  showHit()
+
+  //const bearerToken = req.headers.authorization
+  //const documentId = req.data["documentId"]
+
+  //console.log(bearerToken)
+  //console.log(documentid)
+  console.log("octet-stream !!finch  ")
+  try {
+    const auth = req.headers.authorization
+    const documentId = req.body["documentId"]
+    console.log("\t\t" + auth + "    documentId " + documentId)
+  } catch (something_is_wrong) {
+    // LIkeky was simply not included
+    console.log("Looked for auth and docId params but " + something_is_wrong)
+  }
+  res.writeHead(200, { "Content-Type": "finch application/octet-stream" });
+  fs.readFile('sample.pdf', (boom, data) => {
+    if (boom) {
+      res.send(boom)
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
+});
+
 app.post('/post_retrievePdf', function (req, res) {
   showHit()
 
@@ -151,7 +181,21 @@ app.post('/echo_post', function (req, res) {
   res.send(everything);
 });
 
+
+
 app.get('/', function (req, res) {
+  showHit()
+
+  //1:  __dirname = allow relative paths ( relative to where server.js is )
+  //2: the {root: } is to prevent someone from sending tricksy paths such as
+  // vv../../../my-secrets/importantfile.txt
+  //
+  // 
+  res.sendFile('index.html', { root: __dirname })
+})
+
+
+app.get('/orig', function (req, res) {
   showHit()
   //1:  __dirname = allow relative paths ( relative to where server.js is )
   //2: the {root: } is to prevent someone from sending tricksy paths such as

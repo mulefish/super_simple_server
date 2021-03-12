@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="utf-8" />
+    <style>
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous"></script>
+    <script src="notebook_guilogic.js"></script>
+
+    <script src="https://unpkg.com/pdf-lib"></script>
+    <title></title>
+    <script>
+
+        function removeFromLocalStorage() {
+            alert("removeFromLocalStorage")
+        }
+        function removeFromPage() {
+            alert("removeFromPage")
+        }
+    </script>
+
+</head>
+
+<body>
+    <a href="http://localhost:3030/">http://localhost:3030/</a>
+    <button onClick="injectNewArea()">New Area</button>
+    <hr>
+    <iframe id="iframe" style="width:100%"></iframe>
+    <hr>
+    <div id="content">
+
+    </div>
+
+</body>
+
+</html>

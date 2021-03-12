@@ -18,6 +18,74 @@
     <hr>
 
     <fieldset>
+        <input size=140 type="text" id="post_octet_retrievePdf_url"
+            value="http://localhost:3030/post_octet_retrievePdf"></input>
+        <br />
+
+        <pre>
+            function post_octet_retrievePdf() {
+                const apiURL = document.getElementById("the_post_url").value; // 
+                console.log("POST: " + apiURL)
+                axios(apiURL, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123abc'
+                    },
+                    data: {
+                        'documentId': '776613'
+                    },
+                    method: 'POST',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' }) //Build a URL from the file
+                        const blobUrl = URL.createObjectURL(file)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
+                        document.getElementById("iframe").src = blobUrl
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
+                    });
+            }        </pre>
+        <script>
+            function post_octet_retrievePdf() {
+                const apiURL = document.getElementById("post_octet_retrievePdf_url").value; // 
+                console.log("POST: " + apiURL)
+                axios(apiURL, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 123abc'
+                    },
+                    data: {
+                        'documentId': '776613'
+                    },
+                    method: 'POST',
+                    responseType: 'blob' //Force to receive data in a Blob Format
+                })
+                    .then(response => {//Create a Blob from the PDF Stream
+                        const file = new Blob(
+                            [response.data],
+                            { type: 'application/pdf' }) //Build a URL from the file
+                        const blobUrl = URL.createObjectURL(file)
+                        //blobUrl = """blob:http://localhost:2222/e16b60f3-eb20-9d44-883a-1f7f7dad3baa"
+                        document.getElementById("iframe").src = blobUrl
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        document.getElementById("iframe").src = "POST FAIL BOT : Is the server running?"
+                    });
+            }
+        </script>
+        <button onClick="post_octet_retrievePdf()">post_octet_retrievePdf</button>
+    </fieldset>
+
+
+
+
+    <fieldset>
         <input size=140 type="text" id="the_post_url" value="http://localhost:3030/post_retrievePdf"></input>
         <br />
 

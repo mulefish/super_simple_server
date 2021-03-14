@@ -3,6 +3,7 @@ let id = NILL
 let last_id = NILL;
 const this_is_a_wrapper = "_WRAPPER"
 const this_is_a_textarea = "_TEXTAREA"
+const this_is_a_comment = "_COMMENT"
 const template = `<table border='1' >
 <tr>
     <td>
@@ -17,10 +18,24 @@ const template = `<table border='1' >
     <td>
         4 <button>saveToLocalStorage</button>
     </td>
+    <td>
+        <button onClick="addComment('REPLACE_COMMENT_ID_HERE');")>addComment</button>
+    </td>
+</td>
+
+</tr>
+<tr>
+    <td id="REPLACE_COMMENT_ID_HERE">
+    </td>
 </tr>
 <tr >
-    <td colspan="5">
+    <td colspan="6">
         <textarea rows="30" cols="100" value="" id="REPLACE_TEXTARE_ID_HERE"></textarea>
+    </td>
+</tr>
+<tr>
+    <td>
+        <button onClick="executeThisLogic('REPLACE_TEXTARE_ID_HERE');">Execute</button>     
     </td>
 </tr>
 </table>
@@ -53,12 +68,24 @@ function injectNewArea() {
     id = getNextKey(id)
     const wrapperId = id + this_is_a_wrapper
     const textareaId = id + this_is_a_textarea
+    const commentId = id + this_is_a_comment
     let wrapper = document.createElement("div")
-    let x = template.replace("REPLACE_TEXTARE_ID_HERE", textareaId)
+    let x = template.replaceAll("REPLACE_TEXTARE_ID_HERE", textareaId)
     x = x.replace("BASE_ID_HERE", id)
+    x = x.replace("REPLACE_COMMENT_ID_HERE", commentId)
     wrapper.id = wrapperId
     wrapper.innerHTML = x
 
     document.getElementById("content").appendChild(wrapper)
 }
 
+// ................. 
+function executeThisLogic(id) {
+    alert(id)
+}
+
+function addComment(id) {
+   let words = document.getElementById(id).innerHTML
+    
+
+}
